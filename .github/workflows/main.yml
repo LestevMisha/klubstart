@@ -26,6 +26,9 @@ jobs:
           ssh-add <(echo "${{ secrets.SSH_PRIVATE_KEY }}") <<< "${{ secrets.SSH_PASSPHRASE }}"
         shell: bash
 
+      - name: Test SSH connection manually
+        run: ssh -v ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} exit 0
+
       - name: Deploy with rsync
         run: |
           rsync -avz --delete ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.DEPLOY_PATH }}
