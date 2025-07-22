@@ -39,8 +39,8 @@ class LoginController extends RateLimiterController {
 
             // 4. Check if user can access the dashboard
             $user = \App\Models\User::where('email', $request->input('email'))->first();
-            if (!$user->is_subscribed || $user->days_left <= 0 || $user->kicked_at) {
-                return $this->respond->renderErrors(["email" => __("login.invalid_subscription"), "password" => ""], "partials._input-error-message");
+            if (!$user->is_subscribed || $user->days_left <= 0 || !$user->email_verified_at) {
+                return $this->respond->renderErrors(["email" => __("login.invalid_credentials"), "password" => ""], "partials._input-error-message");
             }
 
             // Transfer guest preferences

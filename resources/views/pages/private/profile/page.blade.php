@@ -9,7 +9,7 @@
                 <x-field.compiled :uid="uniqid()" :inscription="__('pages/private/profile.27')" attribute="payment-amount" :value="$payment->amount" />
                 <x-field.compiled :uid="uniqid()" :inscription="__('pages/private/profile.28')" attribute="next-payment-date" :value="$formatted" />
                 <div class="flex flex-col gap-2">
-                    <x-button.compiled :uid="uniqid()" :title="__('pages/private/profile.20')" :url="app(\App\Services\TelegramServices::class)->__getCustomTelegramLink('cancellation')" />
+                    <x-button.compiled :uid="uniqid()" :title="__('pages/private/profile.20')" :url="app(\App\Services\TelegramServices::class)->__getUnderscoreRestrictedTelegramLink('cancel-subscription', auth()->user()->uuid)" />
                     <div class="text-[0.8rem] font-normal text-[#acacac] dark:text-[#666666]">
                         {{ __('pages/private/profile.5') }}
                     </div>
@@ -24,7 +24,7 @@
         <x-inputs.copy-input.compiled :uid="uniqid()" :inscription="__('pages/private/profile.22')" attribute="current-telegram" :value="'t.me/' . auth()->user()->username" />
         <x-field.compiled :uid="uniqid()" :inscription="__('pages/private/profile.21')" attribute="current-name" :value="auth()->user()->name" />
         <x-field.compiled :uid="uniqid()" :inscription="__('pages/private/profile.17')" attribute="current-email" :value="auth()->user()->email" />
-        <x-button.compiled :uid="uniqid()" :title="__('pages/private/profile.16')" url="https://t.me/ClubStarthelp_bot" />
+        <x-button.compiled :uid="uniqid()" :title="__('pages/private/profile.16')" :url="app(\App\Services\TelegramServices::class)->__getUnderscoreRestrictedTelegramLink('change-email', auth()->user()->uuid)" />
         <x-field.compiled :uid="uniqid()" :inscription="__('pages/private/profile.11')" attribute="email-verified" :value="__($isVerifiedLabel)" />
     </div>
 

@@ -4,9 +4,6 @@
     <div class="cell flex h-full w-full flex-col">
         <div class="align-center mb-4 flex flex-row justify-between">
             <div class="h-fit font-semibold text-[#666666] dark:text-[#acacac]"> {{ __('pages/private/dashboard.1') }}</div>
-            <div class="js-drag-handler">
-                @svg('drag-pan', 'icon_grey icon_2rem icon_p6 icon_radius-0.5rem cursor-move')
-            </div>
         </div>
         <div class="flex flex-col gap-4">
             @if ($telegram_invite_url)
@@ -27,7 +24,7 @@
                 </div>
             </div>
             <div class="flex flex-col gap-2">
-                <x-button.compiled :uid="uniqid()" :title="__('pages/private/dashboard.6')" :url="app(\App\Services\TelegramServices::class)->__getCustomTelegramLink('archives')" />
+                <x-button.compiled :uid="uniqid()" :title="__('pages/private/dashboard.6')" :url="app(\App\Services\TelegramServices::class)->__getUnderscoreRestrictedTelegramLink('get-archives', auth()->user()->uuid)" />
                 <div class="text-[0.8rem] font-normal text-[#acacac] dark:text-[#666666]">
                     {{ __('pages/private/dashboard.7') }}
                 </div>
@@ -39,9 +36,6 @@
     <div class="cell flex h-full w-full flex-col">
         <div class="align-center mb-4 flex flex-row justify-between">
             <div class="h-fit font-semibold text-[#666666] dark:text-[#acacac]">{{ __('pages/private/dashboard.28') }}</div>
-            <div class="js-drag-handler">
-                @svg('drag-pan', 'icon_grey icon_2rem icon_p6 icon_radius-0.5rem cursor-move')
-            </div>
         </div>
         <div class="mb-4 flex flex-col gap-4 sm:mb-[2.2rem]">
             <div class="flex flex-col gap-2">
@@ -71,9 +65,6 @@
     <div class="cell flex h-full w-full flex-col">
         <div class="align-center mb-4 flex flex-row justify-between">
             <div class="h-fit font-semibold text-[#666666] dark:text-[#acacac]">{{ __('pages/private/dashboard.12') }}</div>
-            <div class="js-drag-handler">
-                @svg('drag-pan', 'icon_grey icon_2rem icon_p6 icon_radius-0.5rem cursor-move')
-            </div>
         </div>
         <div class="flex flex-col gap-4">
             @if (auth()->user()->telegram_channel_exempted)

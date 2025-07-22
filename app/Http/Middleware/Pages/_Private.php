@@ -29,14 +29,16 @@ class _Private {
         }
 
         if (!$user) return redirect()->route("auth.login");
-        // auto logout if user was kciked and account disabled
-        if ($user->kicked_at) {
+        // auto logout if user's subscription has expired in the current session
+        if (!$user->is_subscribed || !$user->email_verified_at || !$user->password) {
             Auth::logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
         }
-        if (!$user->is_subscribed) return redirect($this->telegramServices->__getCustomTelegramLink("subscribe"));
-        if (!$user->email_verified_at) return redirect($this->telegramServices->__getCustomTelegramLink("sign"));
+        if (!$user->is_subscribed) return redirect($this->telegramServices->_getRegisterLink());
+        if (!$user->email_verified_at) {
+            return redirect()->away($this->telegramServices->__getUnderscoreRestrictedTelegramLink("sign", $user->uuid));
+        };
         if (!$user->password) return redirect()->route("public.password.forgot");
 
         return $next($request);

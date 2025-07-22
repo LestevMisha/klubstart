@@ -17,17 +17,17 @@ class TelegramServices {
     ) {}
 
     /* +++++++++++++++++++ PUBLIC SECTION +++++++++++++++++++ */
-    public function __getCustomTelegramLink(string $subject, string $referred_by_uuid = ""): string {
+    public function __getUnderscoreRestrictedTelegramLink(string $subject, string $identifier): string {
         // telegram deep link formation
         $base = config("services.telegram.bot_url");
-        $param = implode("_", [$subject, $referred_by_uuid ? $referred_by_uuid : auth()->user()?->uuid]);
+        $param = implode("_", [$subject, $identifier]);
         return "{$base}?start={$param}";
     }
 
     public function _getRegisterLink(): string {
         // get referred_by_uuid from the request - default to cookies
         $referred_by_uuid = request()->query('referred_by_uuid', request()->cookie("referred_by_uuid", ""));
-        return $this->__getCustomTelegramLink("web", $referred_by_uuid);
+        return auth()->user() ? route("private.dashboard") : $this->__getUnderscoreRestrictedTelegramLink("web", $referred_by_uuid);
     }
 
     public function observeCurrentUserImage($user_id, $index = 0): array {
