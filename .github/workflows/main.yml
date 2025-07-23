@@ -23,4 +23,4 @@ jobs:
 
       - name: Deploy with rsync
         run: |
-          rsync -avzi --delete --chown=${{ secrets.SSH_USER }}:shared --exclude-from='.rsyncignore' ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.DEPLOY_PATH }}
+          rsync -avzi --delete --no-perms --no-owner --no-group --chown=${{ secrets.SSH_USER }}:shared --exclude-from='.rsyncignore' ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.DEPLOY_PATH }}
