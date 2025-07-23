@@ -14,20 +14,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup SSH with passphrase
+      - name: Setup SSH
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
-
-          # Start ssh-agent and add key with passphrase
-          eval "$(ssh-agent -s)"
-          ssh-add <(echo "${{ secrets.SSH_PRIVATE_KEY }}") <<< "${{ secrets.SSH_PASSPHRASE }}"
-        shell: bash
-
-      - name: Test SSH connection manually
-        run: ssh -v ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} exit 0
 
       - name: Deploy with rsync
         run: |
