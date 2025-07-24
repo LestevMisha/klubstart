@@ -12,16 +12,10 @@ jobs:
           echo "${{ secrets.PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
 
-          eval "$(ssh-agent -s)"
-          echo "${{ secrets.PASSPHRASE }}" | ssh-add ~/.ssh/id_rsa
-
-          ssh-keyscan -p 22 ${{ secrets.HOST }} >> ~/.ssh/known_hosts
-
       - name: Rsync files
         run: |
           rsync -az --delete \
             --chmod=Dg+rwx,Fg+rw \
             --no-owner --no-group --no-perms \
-            -e "ssh -o StrictHostKeyChecking=yes" \
             ./ ${{ secrets.USERNAME }}@${{ secrets.HOST }}:${{ secrets.DEPLOY_PATH }}
 
