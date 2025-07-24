@@ -16,7 +16,6 @@ jobs:
       - name: Rsync files
         run: |
           rsync -azv --delete --exclude-from='.rsyncignore' \
-            --chmod=Dg+s,Dug+rwx,Fug=rw \
             --chown=${{ secrets.USERNAME }}:shared \
             ./ ${{ secrets.USERNAME }}@${{ secrets.HOST }}:${{ secrets.DEPLOY_PATH }}
 
