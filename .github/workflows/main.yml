@@ -15,8 +15,7 @@ jobs:
 
       - name: Rsync files
         run: |
-          rsync -az --delete \
+          rsync -azv --delete --no-owner --no-group --no-times \
             --chmod=Dg+rwx,Fg+rw \
-            --no-owner --no-group --no-perms \
             ./ ${{ secrets.USERNAME }}@${{ secrets.HOST }}:${{ secrets.DEPLOY_PATH }}
 
