@@ -16,7 +16,7 @@ jobs:
       - name: Rsync files
         run: |
           rsync -azv --delete --exclude-from='.gitignore' \
-            --chmod=Fug=rwX,Fo=,Dug=rwxs \
+            --chmod=Fug=rwX,Fo=,Dug=rwxs,Do= \
             --chown=${{ secrets.USERNAME }}:shared \
             ./ ${{ secrets.USERNAME }}@${{ secrets.HOST }}:${{ secrets.DEPLOY_PATH }}
 
