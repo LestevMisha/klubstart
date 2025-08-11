@@ -238,6 +238,9 @@ color utility to any element that depends on these defaults.
         background-image: url('/assets/images/min-png/sneaker-main.png');
         background-size: contain;
         background-repeat: no-repeat;
+        -webkit-mask-image: url('/assets/images/min-png/sneaker-main.png');
+        -webkit-mask-repeat: no-repeat;
+        -webkit-mask-size: contain;
         transition: 0.2s ease-in-out;
     }
     
